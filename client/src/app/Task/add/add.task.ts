@@ -1,7 +1,8 @@
-import {Component} from "@angular/core";
+import {Component, EventEmitter, Output} from "@angular/core";
 import {NgbActiveModal} from "@ng-bootstrap/ng-bootstrap";
 import {TaskService} from "../../services/managers/task.service";
 import {FormControl, FormGroup, Validators} from "@angular/forms";
+import {Task} from '../../models/Task';
 
 @Component({
   selector: 'app-add-task-back',
@@ -9,29 +10,19 @@ import {FormControl, FormGroup, Validators} from "@angular/forms";
   styleUrls: []
 })
 export class AddTaskComponent {
-  constructor(public activeModal: NgbActiveModal, private taskService: TaskService) {
-  }
+  constructor(public activeModal: NgbActiveModal, private taskService: TaskService) {}
+  @Output() addTaskEvent = new EventEmitter<any>();
 
   addTask = new FormGroup({
     title: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
-    priority: new FormControl('', [Validators.required]),
   });
 
-  confirm() {
+  onClickOk() {
     let t = {
       title: this.addTask.value.title,
       description: this.addTask.value.description,
-      priority: this.addTask.value.priority
     };
-    this.taskService.addTask(t).subscribe(
-      response => {
-        this.activeModal.close();
-        window.location.reload();
-      },
-      error => {
-        console.log(error);
-      }
-    );
+    this.addTaskEvent.emit(t);
   }
 }

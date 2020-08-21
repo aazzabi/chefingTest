@@ -8,18 +8,18 @@
   <form [formGroup]="addTask">
     <label>Title :</label>
     <input formControlName="title" type="text" class="form-control form-control-alternative">
+    <span *ngIf="addTask.controls.title.touched && addTask.controls.title.errors.required "
+          style="font-size: 12px;color: red !important;">Required Field</span><br>
     <label>Description :</label>
     <input formControlName="description" type="text" class="form-control form-control-alternative">
-    <label>Priority :</label>
-    <select formControlName="priority" class="form-control form-control-alternative">
-      <option value="LOW">LOW</option>
-      <option value="NORMAL">NORMAL</option>
-      <option value="IMPORTANT">IMPORTANT</option>
-      <option value="CRITICAL">CRITICAL</option>
-    </select>
+    <span *ngIf="addTask.controls.description.touched && addTask.controls.description.errors.required "
+          style="font-size: 12px;color: red !important;">Required Field</span><br>
+    <div *ngIf="addTask.errors" class="alert alert-danger">
+      {{ addTask.errors }}
+    </div>
   </form>
 </div>
 <div class="modal-footer">
-  <button type="button" class="btn btn-success" [disabled]="this.taskService.error" (click)="confirm()">Confirm</button>
-  <button type="button" class="btn btn-outline-darks"  (click)="activeModal.close('Close click')">Close</button>
+  <button type="button" class="btn btn-success" [disabled]="!addTask.valid" (click)="onClickOk()">Confirm</button>
+  <button type="button" class="btn btn-outline-darks" (click)="activeModal.close('Close click')">Close</button>
 </div>
