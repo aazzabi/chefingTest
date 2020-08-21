@@ -6,6 +6,7 @@ export class Task {
   public status: string;
   public createdAt: Date;
   public checked: boolean;
+  public editContent: boolean;
 
   public constructor(title: string, d: string, ty: string, p: string) {
     this.title = title;

@@ -1,10 +1,10 @@
 import {Component, EventEmitter, Output} from '@angular/core';
 import {ActivatedRoute, Router} from '@angular/router';
 import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
-import {EditTaskComponent} from "../edit/edit.task";
 import {TaskService} from "../../services/managers/task.service";
 import {AddTaskComponent} from "../add/add.task";
 import {Task} from '../../models/Task';
+import {FormControl, FormGroup, Validators} from "@angular/forms";
 
 @Component({
   selector: 'app-all-task-back',
@@ -22,12 +22,15 @@ export class AllTasks {
     private route: ActivatedRoute,
     private modalService: NgbModal) {
     this.allTasks = this.route.snapshot.data['tasks'];
+    this.allTasks.forEach((v) => {
+      v.editContent = false;
+    });
+    console.log(this.allTasks);
   }
-
-  edit(t: Task) {
-    const modalRef = this.modalService.open(EditTaskComponent);
-    modalRef.componentInstance.t = t;
-  }
+  editTask = new FormGroup({
+    title: new FormControl('', [Validators.required]),
+    description: new FormControl('', [Validators.required]),
+  });
 
   new() {
     const modalRef = this.modalService.open(AddTaskComponent);
@@ -159,6 +162,35 @@ export class AllTasks {
       tempChecked.forEach(obj => {
         obj.checked = false;
       });
+    }
+  }
+
+  edit(t: Task) {
+    t.editContent = true;
+    this.editTask.get('title').setValue(t.title);
+    this.editTask.get('description').setValue(t.description);
+    console.log(t);
+  }
+
+  confirmEdit(t: Task) {
+    if ((t.title !== this.editTask.value.title) || (t.description !== this.editTask.value.description)) {
+      let editedTask = {
+        _id: t._id,
+        title: this.editTask.value.title,
+        description: this.editTask.value.description,
+      };
+      this.TaskService.editTask(editedTask).subscribe(
+        response => {
+          t.editContent = false;
+          t.title = this.editTask.value.title;
+          t.description = this.editTask.value.description;
+        },
+        error => {
+          console.log(error);
+        }
+      );
+    } else {
+      t.editContent = false;
     }
   }
 }

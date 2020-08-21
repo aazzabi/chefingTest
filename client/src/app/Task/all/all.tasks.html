@@ -19,18 +19,24 @@
           <input type="checkbox" (change)="checkbox(t, index)" [(ngModel)]="t.checked" value="{{t._id}}">
         </label>
       </div>
-      <div class="col-md-8">
+      <div class="col-md-8" *ngIf="t.editContent == false">
         <h3 *ngIf="t.title != null">{{t.title | uppercase}} </h3>
         <h5 *ngIf="t.description != null">{{t.description}}</h5>
         <span *ngIf="t.createdAt != null"  class="text-right">Created : {{t.createdAt | date: 'M/d/yyyy'}}</span>
       </div>
+      <div class="col-md-8" *ngIf="t.editContent == true">
+        <form [formGroup]="editTask">
+          <input formControlName="title" type="text" class="form-control form-control-alternative"><br>
+          <input formControlName="description" type="text" class="form-control form-control-alternative">
+        </form>
+      </div>
       <div class="col-md-4 text-right">
         <button *ngIf="t.status == 'TODO'" (click)="check(t)" type="button" class="btn btn-success"><i class="fa fa-check"></i></button>
-        <button *ngIf="t.status == 'DONE'" (click)="unCheck(t)" type="button" class="btn btn-primary"><i class="fa fa-times"></i></button>
-        <button (click)="deleteTask(index, t)" type="button" class="btn btn-sm btn-danger">
-          <i class="fa fa-trash"></i>
-        </button>
-        <button (click)="edit(t)" type="button" class="btn btn-warning"><i class="fa fa-pencil"></i></button>
+<!--        <button *ngIf="t.status == 'DONE'" (click)="unCheck(t)" type="button" class="btn btn-primary"><i class="fa fa-times"></i></button>-->
+        <button (click)="deleteTask(index, t)" type="button" class="btn btn-sm btn-danger"><i class="fa fa-trash"></i></button>
+
+        <button *ngIf="t.editContent == true"  [disabled]="!editTask.valid" (click)="confirmEdit(t)" type="button" class="btn btn-warning">OK</button>
+        <button *ngIf="t.editContent == false" (click)="edit(t)" type="button" class="btn btn-warning"><i class="fa fa-pencil"></i></button>
       </div>
     </div>
   </div>

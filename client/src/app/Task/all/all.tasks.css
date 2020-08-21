@@ -7,7 +7,7 @@ body {
   border-radius: 15px;
   padding: 25px 30px;
 }
-.done * {
+.done h3, h5, span {
   text-decoration:  line-through ;
   font-weight: lighter;
 }
