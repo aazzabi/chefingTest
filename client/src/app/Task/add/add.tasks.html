@@ -1,0 +1,18 @@
+<div class="modal-header">
+  <h4 class="modal-title">New task</h4>
+  <button type="button" class="close" aria-label="Close" (click)="activeModal.dismiss('Cross click')">
+    <span aria-hidden="true">&times;</span>
+  </button>
+</div>
+<div class="modal-body">
+  <form [formGroup]="addTask">
+    <label>Title :</label>
+    <input formControlName="title" type="text" class="form-control form-control-alternative">
+    <label>Description :</label>
+    <input formControlName="description" type="text" class="form-control form-control-alternative">
+  </form>
+</div>
+<div class="modal-footer">
+  <button type="button" class="btn btn-success" [disabled]="this.taskService.error" (click)="confirm()">Confirm</button>
+  <button type="button" class="btn btn-outline-darks"  (click)="activeModal.close('Close click')">Close</button>
+</div>
