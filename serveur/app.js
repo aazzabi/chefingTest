@@ -12,9 +12,6 @@ const port = process.env.PORT || 8080;
 
 var mongoose = require('mongoose');
 
-var usersRouter = require('./routes/Users');
-var claimsRouter = require('./routes/Claims');
-
 const url = "mongodb://localhost:27017/chefing";
 mongoose.connect(url, {useNewUrlParser: true, useCreateIndex: true});
 // mongoose.set({ usecreateIndexes: true });
@@ -54,8 +51,6 @@ app.use(fileUpload({
     preserveExtension: true,
     useTempFiles: false
 }));
-app.use('/users', usersRouter);
-app.use('/claims', claimsRouter);
 app.use('/tasks', require('./routes/Tasks'));
 
 
