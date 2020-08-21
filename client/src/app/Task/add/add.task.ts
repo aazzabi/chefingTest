@@ -15,15 +15,19 @@ export class AddTaskComponent {
   addTask = new FormGroup({
     title: new FormControl('', [Validators.required]),
     description: new FormControl('', [Validators.required]),
+    priority: new FormControl('', [Validators.required]),
   });
 
   confirm() {
-    this.taskService.add({
+    let t = {
       title: this.addTask.value.title,
-      description: this.addTask.value.description
-    }).subscribe(
+      description: this.addTask.value.description,
+      priority: this.addTask.value.priority
+    };
+    this.taskService.addTask(t).subscribe(
       response => {
         this.activeModal.close();
+        window.location.reload();
       },
       error => {
         console.log(error);
