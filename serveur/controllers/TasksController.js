@@ -83,7 +83,6 @@ var add = async (req, res, next) => {
     task.create({
         title: req.body.title,
         description: req.body.description,
-        priority: req.body.priority,
         createdAt: new Date(),
     }).then((data) => {
         res.set('Content-Type', 'application/json');

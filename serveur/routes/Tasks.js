@@ -5,6 +5,7 @@ var tasksController = require('../controllers/TasksController');
 router.get('/', tasksController.getAll);
 router.get('/:id', tasksController.getById);
 router.post('/add', tasksController.add);
+router.put('/update/:id', tasksController.updateTask);
 router.put('/confirme/:id', tasksController.confirme);
 router.put('/unconfirme/:id', tasksController.unconfirme);
 router.delete('/delete/:id', tasksController.deleteTask);

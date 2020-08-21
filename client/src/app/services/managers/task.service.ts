@@ -28,14 +28,19 @@ export class TaskService {
     return this.http.delete(this.url + '/delete/' + t._id);
   }
 
-  confirmerTask(t: any) {
+  confirmTask(t: any) {
     return this.http.put(this.url + '/confirme/' + t._id, t , httpOptions);
   }
-  unConfirmerTask(t: any) {
+  unConfirmTask(t: any) {
     return this.http.put(this.url + '/unconfirme/' + t._id, t , httpOptions);
   }
   addTask(t: any) {
     const body = JSON.stringify(t);
     return this.http.post(this.url + '/add', body, httpOptions);
+  }
+
+  editTask(t:any) {
+    const body = JSON.stringify(t);
+    return this.http.put(this.url + '/update/'+ t._id, body, httpOptions);
   }
 }
