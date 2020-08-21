@@ -1,0 +1,24 @@
+<!--Division for GeeksForGeeks heading-->
+<div class="container-fluid">
+  <!--Division for taking input from user -->
+  <div class="row bg-info">
+    <div class="header btn-group"  style="margin: 0 auto">
+      <button (click)="new()" class="btn btn-light text-success">ADD TASK</button>
+    </div>
+  </div>
+
+  <div class="row">
+    <div *ngFor="let t of allTasks; let index = index;" class="col-md-6 btn-group offset-md-3 task">
+      <div class="col-md-8">
+        <h3 *ngIf="t.title != null" class="text-light ">{{t.title | uppercase}}</h3>
+        <h5>{{t.description}}</h5>
+      </div>
+      <div class="col-md-4 text-right">
+        <button (click)="deleteTask(index, t)" type="button"
+                class="btn btn-danger">
+          <i class="fa fa-home fa-5x"></i>
+          <i class="fa fa-trash"></i></button>
+      </div>
+    </div>
+  </div>
+</div>
