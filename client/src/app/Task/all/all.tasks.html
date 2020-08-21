@@ -2,25 +2,27 @@
 <div class="container-fluid">
   <!--Division for taking input from user -->
   <div class="row bg-info">
-    <div class="header btn-group">
-      <button (click)="new()" class="btn btn-light text-success">+<i class="fa fa-plus"></i> </button>
+    <div class="col-md-6 offset-md-3 btn-group ">
+      <button (click)="new()" class="btn text-success"><i class="fa fa-plus"></i> Add</button>
     </div>
   </div>
 
   <div class="row">
-    <div *ngFor="let t of allTasks; let index = index;" class="col-md-6 btn-group offset-md-3 task">
-      <div [ngStyle]="{'backgroundColor': t.status == 'TODO' ? 'red' : 'green' }" style="width: 5px">
+    <div *ngFor="let t of allTasks; let index = index;" class="col-md-6 btn-group offset-md-3 task"
+         [ngStyle]="{'border-left': t.status == 'TODO' ? '7px solid red' : '7px solid green' }" >
 
-      </div>
-      <div class="col-md-7">
+      <div class="col-md-8">
         <h3 *ngIf="t.title != null">{{t.title | uppercase}} </h3>
         <h5 *ngIf="t.description != null">{{t.description}}</h5>
         <span *ngIf="t.createdAt != null"  class="text-right">Created : {{t.createdAt | date: 'M/d/yyyy'}}</span>
       </div>
       <div class="col-md-4 text-right">
-        <button *ngIf="t.status == 'TODO'" (click)="check(t)" type="button" class="btn btn-success">Check</button>
-        <button (click)="deleteTask(index, t)" type="button" class="btn btn-sm btn-danger">Delete</button>
-        <button (click)="edit(t)" type="button" class="btn btn-warning">Edit</button>
+        <button *ngIf="t.status == 'TODO'" (click)="check(t)" type="button" class="btn btn-success"><i class="fa fa-check"></i> Check</button>
+        <button *ngIf="t.status == 'DONE'" (click)="unCheck(t)" type="button" class="btn btn-primary"><i class="fa fa-times"></i> UnCheck</button>
+        <button (click)="deleteTask(index, t)" type="button" class="btn btn-sm btn-danger">
+          <i class="fa fa-trash"></i>
+        </button>
+        <button (click)="edit(t)" type="button" class="btn btn-warning"><i class="fa fa-pencil"></i></button>
       </div>
     </div>
   </div>

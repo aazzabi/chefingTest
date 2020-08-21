@@ -34,6 +34,15 @@ var confirme = (req, res, next) => {
             res.status(500).send(error);
         });
 };
+var unconfirme = (req, res, next) => {
+    task.findOneAndUpdate({"_id": req.params.id}, {$set: {'status': 'TODO'}})
+        .then((data) => {
+            res.status(202).json(data);
+        })
+        .catch(error => {
+            res.status(500).send(error);
+        });
+};
 var updateTask = (req, res, next) => {
     const updateData = req.body;
     if (!updateData) {
@@ -106,4 +115,5 @@ module.exports = {
     add,
     deleteTask,
     confirme,
+    unconfirme,
 };

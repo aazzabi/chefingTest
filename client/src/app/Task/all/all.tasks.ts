@@ -171,4 +171,17 @@ export class AllTasks {
       }
     );
   }
+
+  unCheck(t: Task) {
+    this.TaskService.unConfirmerTask(t).subscribe(
+      response => {
+        // @ts-ignore
+        t.status = 'TODO';
+        console.log(response);
+      },
+      error => {
+        console.log(error);
+      }
+    );
+  }
 }

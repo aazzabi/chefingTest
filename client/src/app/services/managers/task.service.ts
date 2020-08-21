@@ -31,6 +31,9 @@ export class TaskService {
   confirmerTask(t: any) {
     return this.http.put(this.url + '/confirme/' + t._id, t , httpOptions);
   }
+  unConfirmerTask(t: any) {
+    return this.http.put(this.url + '/unconfirme/' + t._id, t , httpOptions);
+  }
   addTask(t: any) {
     const body = JSON.stringify(t);
     return this.http.post(this.url + '/add', body, httpOptions);
