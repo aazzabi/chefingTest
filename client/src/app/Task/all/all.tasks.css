@@ -2,13 +2,24 @@ body {
   background-color: #f9f9fa
 }
 .task {
-  background-color: #ced4da;
+  margin-top: 10px;
   border: 2px solid rgba(100, 99, 98, 0.49);
   border-radius: 15px;
   padding: 25px 30px;
 }
 .task h3 {
-  color : white
+  color : black;
+}
+.task h5 {
+  color : #7d7d7d;
+}
+.task span {
+  font-size: 10px;
+}
+.btn{
+  margin: 5px;
+  border-radius: 5px;
+  border: 1px solid coral;
 }
 .flex {
   -webkit-box-flex: 1;

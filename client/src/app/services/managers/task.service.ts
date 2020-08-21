@@ -25,13 +25,13 @@ export class TaskService {
     return this.http.get<Task[]>(this.url + '/' + id );
   }
   deleteTask(t : any) {
-    return this.http.get(this.url + '/delete/' + t.id);
+    return this.http.delete(this.url + '/delete/' + t._id);
   }
 
   confirmerTask(t: any) {
-    return this.http.get(this.url + '/confirme/' + t.id);
+    return this.http.put(this.url + '/confirme/' + t._id, t , httpOptions);
   }
-  add(t: any) {
+  addTask(t: any) {
     const body = JSON.stringify(t);
     return this.http.post(this.url + '/add', body, httpOptions);
   }

@@ -11,19 +11,7 @@ import {AddTaskComponent} from "../add/add.task";
   styleUrls: ['./all.tasks.css']
 })
 export class AllTasks {
-
-  // loggedUserId = StorageService.get('currentUser').userId;
-  // loggedUserRole = StorageService.get('currentUser').role;
-
   allTasks: Task[];
-  tableChecked = new Array;
-  taskToEdit: Task;
-  config = {itemsPerPage: 0, currentPage: 0, totalItems: 0};
-  configEnCours = {itemsPerPage: 0, currentPage: 0, totalItems: 0};
-  configEnAttente = {itemsPerPage: 0, currentPage: 0, totalItems: 0};
-  configFermee = {itemsPerPage: 0, currentPage: 0, totalItems: 0};
-  configConfirmed = {itemsPerPage: 0, currentPage: 0, totalItems: 0};
-  configResolu = {itemsPerPage: 0, currentPage: 0, totalItems: 0};
 
   collection = {
     count: 10,
@@ -36,10 +24,10 @@ export class AllTasks {
   };
 
   constructor(
-      private TaskService: TaskService,
-      private router: Router,
-      private route: ActivatedRoute,
-      private modalService: NgbModal) {
+    private TaskService: TaskService,
+    private router: Router,
+    private route: ActivatedRoute,
+    private modalService: NgbModal) {
     this.allTasks = this.route.snapshot.data['tasks'];
   }
 
@@ -57,13 +45,11 @@ export class AllTasks {
     const modalRef = this.modalService.open(AddTaskComponent);
   }
 
-
-
   deleteTask(index: number, c: Task) {
     if (confirm('Are you sure to delete this Task')) {
       this.TaskService.deleteTask(c).subscribe(
         response => {
-          this.collection.data.splice(index, 1);
+          this.allTasks.splice(index, 1);
         },
         error => {
           console.log(error);
@@ -160,31 +146,29 @@ export class AllTasks {
   //   }
   // }
 
-  confirmer(t: Task) {
+  // bipper(c: any) {
+  //   this.TaskService.bipperAgent(c.responsable.id);
+  // }
+  newTask: any;
+
+  public addToList() {
+    if (this.newTask == '') {
+    } else {
+      this.allTasks.push(this.newTask);
+      this.newTask = '';
+    }
+  }
+
+  check(t: Task) {
     this.TaskService.confirmerTask(t).subscribe(
       response => {
-          // @ts-ignore
-        const index = this.collection.dataResolu.findIndex(item => item.id === t._id);
-          this.collection.dataResolu.splice(index, 1);
-          console.log(response);
+        // @ts-ignore
+        t.status = 'DONE';
+        console.log(response);
       },
       error => {
         console.log(error);
       }
     );
   }
-
-  // bipper(c: any) {
-  //   this.TaskService.bipperAgent(c.responsable.id);
-  // }
-  newTask: any;
-  public addToList() {
-    if (this.newTask == '') {
-    }
-    else {
-      this.allTasks.push(this.newTask);
-      this.newTask = '';
-    }
-  }
-
 }
