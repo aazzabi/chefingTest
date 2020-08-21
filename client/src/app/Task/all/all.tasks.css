@@ -7,6 +7,19 @@ body {
   border-radius: 15px;
   padding: 25px 30px;
 }
+.done * {
+  text-decoration:  line-through ;
+  font-weight: lighter;
+}
+.done{
+  border-left: 7px solid green;
+}
+.todo * {
+  font-weight: bold;
+}
+.todo {
+  border-left: 7px solid red;
+}
 .task h3 {
   color : black;
 }
